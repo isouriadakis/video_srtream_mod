@@ -129,7 +129,7 @@ class Camera(
                             reply["previewWidth"] = previewSize.height
                             reply["previewHeight"] = previewSize.width
                         }
-                        reply["previewQuarterTurns"] = currentOrientation / 90
+                        reply["previewQuarterTurns"] = 0//currentOrientation / 90
                         Log.i(TAG, "open: width: " + reply["previewWidth"] + " height: " + reply["previewHeight"] + " currentOrientation: " + currentOrientation + " quarterTurns: " + reply["previewQuarterTurns"])
                         result.success(reply)
                     }
@@ -535,6 +535,7 @@ class Camera(
     init {
         checkNotNull(activity) { "No activity available!" }
         cameraManager = activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        /*/
         orientationEventListener = object : OrientationEventListener(activity.applicationContext) {
             override fun onOrientationChanged(i: Int) {
                 if (i == ORIENTATION_UNKNOWN) {
@@ -548,7 +549,7 @@ class Camera(
                 Log.i(TAG, "Updated Orientation (sent) " + currentOrientation + " -- " + (currentOrientation / 90).toString())
             }
         }
-        orientationEventListener.enable()
+        orientationEventListener.enable()*/
         val characteristics = cameraManager.getCameraCharacteristics(cameraName)
         isFrontFacing = characteristics.get(CameraCharacteristics.LENS_FACING) == CameraMetadata.LENS_FACING_FRONT
         sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)!!
